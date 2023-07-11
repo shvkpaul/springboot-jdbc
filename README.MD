@@ -17,3 +17,11 @@ Swagger : http://localhost:8090/swagger-ui/index.html
 # H2 console
 
 http://localhost:8090/h2-console
+
+# Database query
+
+SELECT * FROM POST ;
+
+SELECT * FROM AUTHOR ;
+
+SELECT * FROM COMMENT ;
