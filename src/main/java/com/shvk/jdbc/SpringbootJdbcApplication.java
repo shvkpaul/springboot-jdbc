@@ -1,6 +1,7 @@
 package com.shvk.jdbc;
 
 import com.shvk.jdbc.model.Author;
+import com.shvk.jdbc.model.Comment;
 import com.shvk.jdbc.model.Post;
 import com.shvk.jdbc.repository.AuthorRepository;
 import com.shvk.jdbc.repository.PostRepository;
@@ -26,8 +27,13 @@ public class SpringbootJdbcApplication {
 				.to(authorRepository.save(
 					new Author(null, "shouvik", "paul",
 								"shvkpaul@gmail.com", "shvk")).id());
-			postRepository.save(
-					new Post("Hello world","Welcome", LocalDateTime.now(),author));
+
+			Post post = new Post("Hello world","Welcome", LocalDateTime.now(),author);
+			post.addComment(new Comment( "shouvik", "This is 1st comment"));
+			post.addComment(new Comment( "paul", "This is 2nd comment"));
+			postRepository.save(post);
+
+
 		};
 	}
 }
