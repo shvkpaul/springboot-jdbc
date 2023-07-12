@@ -1,6 +1,7 @@
 package com.shvk.jdbc.controller;
 
 
+import com.shvk.jdbc.dto.PostDetails;
 import com.shvk.jdbc.model.Post;
 import com.shvk.jdbc.repository.AuthorRepository;
 import com.shvk.jdbc.repository.PostRepository;
@@ -28,5 +29,11 @@ public class PostController {
     @GetMapping("/{id}")
     public Optional<Post> findById(@PathVariable("id") Integer id) {
         return posts.findById(id);
+    }
+
+    @GetMapping("/{id}/details")
+    public PostDetails getPostDetails(@PathVariable Integer id) {
+        Post post = posts.findById(id).orElse(null);
+        return new PostDetails(post,authors.findById(post.getAuthor().getId()).get());
     }
 }
