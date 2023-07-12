@@ -11,7 +11,6 @@ import java.util.Set;
 
 public final class Post {
     @Id
-    @JsonIgnore
     private Integer id;
     private String title;
     private String content;

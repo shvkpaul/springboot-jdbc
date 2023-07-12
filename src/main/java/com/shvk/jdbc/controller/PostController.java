@@ -6,6 +6,8 @@ import com.shvk.jdbc.repository.AuthorRepository;
 import com.shvk.jdbc.repository.PostRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/v1/posts")
 public class PostController {
@@ -23,4 +25,8 @@ public class PostController {
         return posts.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Post> findById(@PathVariable("id") Integer id) {
+        return posts.findById(id);
+    }
 }
