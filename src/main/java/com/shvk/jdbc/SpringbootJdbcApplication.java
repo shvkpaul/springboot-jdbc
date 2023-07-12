@@ -19,16 +19,13 @@ public class SpringbootJdbcApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(PostRepository postRepository, AuthorRepository authorRepository) {
+    CommandLineRunner run(PostRepository postRepository, AuthorRepository authorRepository) {
         return args -> {
-            AggregateReference<Author, Integer> author = AggregateReference
-                .to(authorRepository.save(
-                    new Author(null, "shouvik", "paul",
-                        "shvkpaul@gmail.com", "shvk")).id());
+            AggregateReference<Author,Integer> author = AggregateReference.to(authorRepository.save(new Author(null, "shouvik", "paul", "shvkpaul@gmail.com", "shvk")).id());
 
-            Post post = new Post("Hello world", "Welcome", author);
-            post.addComment(new Comment("shouvik", "This is 1st comment"));
-            post.addComment(new Comment("paul", "This is 2nd comment"));
+            Post post = new Post( "shouvik's First Post", "This is shouvik's First Post",author);
+            post.addComment(new Comment( "shouvik", "This is a comment"));
+            post.addComment(new Comment( "deba", "This is another comment"));
             postRepository.save(post);
         };
     }

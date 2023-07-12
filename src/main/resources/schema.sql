@@ -7,7 +7,7 @@ create table Author(
     username varchar(100) not null
 );
 
---post
+-- post
 create table Post (
     id int auto_increment primary key ,
     version int,

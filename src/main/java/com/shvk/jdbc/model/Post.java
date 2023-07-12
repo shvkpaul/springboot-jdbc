@@ -17,7 +17,7 @@ public final class Post {
     private String content;
     private LocalDateTime publishedOn;
     private LocalDateTime updatedOn;
-    private final Set<Comment> comments = new HashSet<>();
+    private Set<Comment> comments = new HashSet<>();
     private AggregateReference<Author, Integer> author;
 
     public Post(String title, String content, AggregateReference<Author, Integer> author) {
@@ -80,6 +80,10 @@ public final class Post {
         return comments;
     }
 
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
     public AggregateReference<Author, Integer> getAuthor() {
         return author;
     }
@@ -96,6 +100,8 @@ public final class Post {
             ", content='" + content + '\'' +
             ", publishedOn=" + publishedOn +
             ", updatedOn=" + updatedOn +
+            ", comments=" + comments +
+            ", author=" + author +
             '}';
     }
 }
