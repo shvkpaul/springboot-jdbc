@@ -6,5 +6,5 @@ spring:
     console:
       enabled: true
   datasource:
-      name: blog
-      generate-unique-name: false
+    name: blog
+    generate-unique-name: false

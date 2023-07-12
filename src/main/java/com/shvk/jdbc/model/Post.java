@@ -1,29 +1,30 @@
 package com.shvk.jdbc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class Post {
-
+public final class Post {
     @Id
+    @JsonIgnore
     private Integer id;
     private String title;
     private String content;
     private LocalDateTime publishedOn;
     private LocalDateTime updatedOn;
-    private AggregateReference<Author,Integer> author;
-
     private final Set<Comment> comments = new HashSet<>();
+    private AggregateReference<Author, Integer> author;
 
-    public Post(String title, String content,LocalDateTime publishedOn, AggregateReference<Author,Integer> author) {
+    public Post(String title, String content, AggregateReference<Author, Integer> author) {
         this.title = title;
         this.content = content;
-        this.publishedOn = publishedOn;
         this.author = author;
+        this.publishedOn = LocalDateTime.now();
     }
 
     public Integer getId() {
@@ -66,6 +67,19 @@ public class Post {
         this.updatedOn = updatedOn;
     }
 
+    public void addComments(List<Comment> comments) {
+        comments.forEach(this::addComment);
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.post = this;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
     public AggregateReference<Author, Integer> getAuthor() {
         return author;
     }
@@ -74,14 +88,6 @@ public class Post {
         this.author = author;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void addComment(Comment comment) {
-        comments.add(comment);
-        comment.post = this;
-    }
     @Override
     public String toString() {
         return "Post{" +
